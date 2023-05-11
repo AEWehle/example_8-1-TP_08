@@ -5,6 +5,7 @@
 #include "bright_control.h"
 
 #include "light_level_control.h"
+#include <cstdio>
 
 //=====[Declaration of private defines]========================================
 
@@ -73,7 +74,11 @@ static void tickerCallbackBrightControl( )
     int i;
 
     for (i = 0 ; i < LEDS_QUANTITY ; i++) {
-        tickCounter[i]++;
+        tickCounter[i]++; 
+        // printf("tick %d", tickCounter[i]);
+        // printf(", ontime %d", onTime[i]);
+        // printf(", offTime %d", offTime[i]);
+        // printf(", RGBLed %d \r\n", RGBLed[i].read() );
         if ( RGBLed[i].read() == ON ) {
             if( tickCounter[i] > onTime[i] ) {
                 tickCounter[i] = 1;
