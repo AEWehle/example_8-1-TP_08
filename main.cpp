@@ -20,10 +20,10 @@ typedef enum {
     RGB_LED_GREEN,
     RGB_LED_BLUE,
 } lightSystem_t;
-que s ele puede setear el epriodo y dutycicle
+que se le puede setear el periodo y dutycicle
 
 
-en intit de briht cntrol
+en intit de bright control, es llamado por lightsysteminit
 se establece la interrupcion cada cierto tiempo  tickRateMSBrightControl) / 1000
 para que llame a  tickerCallbackBrightControl cada 1ms con tickRateMSBrightControl = 1
     tickerBrightControl.attach( tickerCallbackBrightControl, 
@@ -44,7 +44,15 @@ esto permitirá dar un brillo a este
 setea el epriodo a 0.01s y el dutycicle a 0.5
 
 viendo en el osciloscopio vemos que le preiodo efectivamente es 10ms
-pero el tiempo de encendido es 1ms, cuando deberia ser 5ms
+pero el tiempo de encendido es 1ms
+
+esto es porque en el pin a0 se lee la señal para regular el duty cicle según
+la iluminación
+
+en light system (sistema de control de las luces)
+lightSystemUpdate() que es llamado por smarthomesystemupdate
+se lee a0 con el modulo de lightlevelcontrol (sensor de luz)
+y se setea el dc segun este usando los metodos de brightcontrol (cnotrol de brillo)
 
 */
 
